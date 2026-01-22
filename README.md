@@ -71,9 +71,10 @@ The React app runs on `http://localhost:5173`.
 - `GET /purchase-orders` - list purchase orders
 - `POST /purchase-orders` - create a purchase order
 - `GET /purchase-orders/:id` - fetch a purchase order
+- `POST /purchase-orders/:id/receive` - receive a purchase order into stock
 
 ## Next steps
 
-- Add goods receipt workflow to turn purchase orders into stock entries.
+- Add partial receiving for purchase orders and receiving history.
 - Add authentication and multi-tenant support for scaling to multiple shops.
 - Implement offline-capable client with sync support.

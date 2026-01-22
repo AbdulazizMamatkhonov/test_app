@@ -54,6 +54,9 @@ const purchaseOrderSchema = new mongoose.Schema(
     expectedAt: {
       type: Date,
     },
+    receivedAt: {
+      type: Date,
+    },
     note: {
       type: String,
       trim: true,

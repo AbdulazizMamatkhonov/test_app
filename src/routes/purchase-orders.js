@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const PurchaseOrder = require("../models/purchase-order");
 const Supplier = require("../models/supplier");
 const Product = require("../models/product");
+const StockEntry = require("../models/stock-entry");
 
 const router = express.Router();
 
@@ -98,6 +99,48 @@ router.get("/:id", async (req, res, next) => {
     res.json({ data: order });
   } catch (error) {
     next(error);
+  }
+});
+
+router.post("/:id/receive", async (req, res, next) => {
+  const session = await mongoose.startSession();
+
+  try {
+    await session.withTransaction(async () => {
+      const order = await PurchaseOrder.findById(req.params.id).session(session);
+
+      if (!order) {
+        res.status(404).json({ error: "Purchase order not found" });
+        return;
+      }
+
+      if (order.status === "received") {
+        res.status(400).json({ error: "Purchase order already received" });
+        return;
+      }
+
+      const stockEntries = order.items.map((item) => ({
+        product: item.product,
+        type: "in",
+        quantity: item.quantity,
+        unitCost: item.unitCost,
+        note: `PO ${order._id}`,
+      }));
+
+      if (stockEntries.length > 0) {
+        await StockEntry.insertMany(stockEntries, { session });
+      }
+
+      order.status = "received";
+      order.receivedAt = req.body.receivedAt ? new Date(req.body.receivedAt) : new Date();
+      await order.save({ session });
+
+      res.json({ data: order });
+    });
+  } catch (error) {
+    next(error);
+  } finally {
+    session.endSession();
   }
 });
 
