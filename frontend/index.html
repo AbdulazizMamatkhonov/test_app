@@ -3,90 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Stock Management Dashboard</title>
-    <link rel="stylesheet" href="styles.css" />
+    <title>Stock Management App</title>
   </head>
   <body>
-    <header class="top-bar">
-      <div>
-        <h1>Stock Management Dashboard</h1>
-        <p>Offline-market ready storefront management.</p>
-      </div>
-      <div class="api-config">
-        <label for="apiBase">API Base URL</label>
-        <input id="apiBase" type="text" placeholder="http://localhost:3000" />
-        <label for="subscriptionKey">Subscription Key</label>
-        <input id="subscriptionKey" type="text" placeholder="Enter subscription key" />
-        <div class="api-actions">
-          <button id="saveApiBase" type="button">Save</button>
-          <button id="checkSubscription" type="button">Check</button>
-        </div>
-        <p id="subscriptionStatus" class="notice">No subscription checked yet.</p>
-      </div>
-    </header>
-
-    <main>
-      <section class="panel">
-        <h2>Products</h2>
-        <form id="productForm" class="grid-form">
-          <input name="name" placeholder="Name" required />
-          <input name="sku" placeholder="SKU" required />
-          <input name="description" placeholder="Description" />
-          <input name="unitPrice" type="number" min="0" step="0.01" placeholder="Unit Price" required />
-          <input name="currency" placeholder="Currency" value="USD" />
-          <button type="submit">Add Product</button>
-        </form>
-        <div class="list" id="productList"></div>
-      </section>
-
-      <section class="panel">
-        <h2>Customers</h2>
-        <form id="customerForm" class="grid-form">
-          <input name="name" placeholder="Name" required />
-          <input name="phone" placeholder="Phone" />
-          <input name="email" placeholder="Email" />
-          <input name="address" placeholder="Address" />
-          <button type="submit">Add Customer</button>
-        </form>
-        <div class="list" id="customerList"></div>
-      </section>
-
-      <section class="panel">
-        <h2>Sales</h2>
-        <form id="saleForm" class="grid-form">
-          <input name="customerId" placeholder="Customer ID (optional)" />
-          <input name="items" placeholder='Items JSON e.g. [{"productId":"...","quantity":1,"unitPrice":10}]' required />
-          <input name="discount" type="number" min="0" step="0.01" placeholder="Discount" />
-          <input name="paidAmount" type="number" min="0" step="0.01" placeholder="Paid Amount" />
-          <input name="paymentMethod" placeholder="Payment Method" />
-          <button type="submit">Create Sale</button>
-        </form>
-        <div class="list" id="salesList"></div>
-      </section>
-
-      <section class="panel">
-        <h2>Payments</h2>
-        <form id="paymentForm" class="grid-form">
-          <input name="customerId" placeholder="Customer ID" required />
-          <input name="saleId" placeholder="Sale ID (optional)" />
-          <input name="amount" type="number" min="0" step="0.01" placeholder="Amount" required />
-          <input name="method" placeholder="Method" />
-          <input name="note" placeholder="Note" />
-          <button type="submit">Record Payment</button>
-        </form>
-        <div class="list" id="paymentList"></div>
-      </section>
-
-      <section class="panel">
-        <h2>Debt Lookup</h2>
-        <form id="debtForm" class="grid-form">
-          <input name="customerId" placeholder="Customer ID" required />
-          <button type="submit">Check Debt</button>
-        </form>
-        <div class="list" id="debtResult"></div>
-      </section>
-    </main>
-
-    <script src="app.js"></script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

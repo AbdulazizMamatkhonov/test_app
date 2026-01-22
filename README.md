@@ -4,6 +4,8 @@ This repository is the starting point for a cloud-based stock management system 
 
 ## Getting started
 
+### Backend
+
 1. Install dependencies
    ```bash
    npm install
@@ -20,10 +22,15 @@ This repository is the starting point for a cloud-based stock management system 
 
 The API will start on `http://localhost:3000` by default.
 
-## Frontend
+### Frontend
 
-Open `frontend/index.html` in your browser and set the API base URL (default: `http://localhost:3000`).
-Provide a subscription key to unlock the protected endpoints.
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+The React app runs on `http://localhost:5173`.
 
 ## Subscription flow
 
