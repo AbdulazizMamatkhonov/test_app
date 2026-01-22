@@ -63,9 +63,17 @@ The React app runs on `http://localhost:5173`.
 - `GET /payments` - list payments
 - `POST /payments` - record a payment
 - `GET /debts/customers/:customerId` - summarize outstanding debt for a customer
+- `GET /suppliers` - list suppliers
+- `POST /suppliers` - create a supplier
+- `GET /suppliers/:id` - fetch a supplier
+- `PUT /suppliers/:id` - update a supplier
+- `DELETE /suppliers/:id` - remove a supplier
+- `GET /purchase-orders` - list purchase orders
+- `POST /purchase-orders` - create a purchase order
+- `GET /purchase-orders/:id` - fetch a purchase order
 
 ## Next steps
 
-- Add suppliers and purchase orders modules.
+- Add goods receipt workflow to turn purchase orders into stock entries.
 - Add authentication and multi-tenant support for scaling to multiple shops.
 - Implement offline-capable client with sync support.

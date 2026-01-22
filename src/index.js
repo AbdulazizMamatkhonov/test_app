@@ -11,6 +11,8 @@ const customersRouter = require("./routes/customers");
 const salesRouter = require("./routes/sales");
 const paymentsRouter = require("./routes/payments");
 const debtsRouter = require("./routes/debts");
+const suppliersRouter = require("./routes/suppliers");
+const purchaseOrdersRouter = require("./routes/purchase-orders");
 const errorHandler = require("./middleware/error-handler");
 const subscriptionGuard = require("./middleware/subscription-guard");
 
@@ -33,6 +35,8 @@ app.use("/customers", customersRouter);
 app.use("/sales", salesRouter);
 app.use("/payments", paymentsRouter);
 app.use("/debts", debtsRouter);
+app.use("/suppliers", suppliersRouter);
+app.use("/purchase-orders", purchaseOrdersRouter);
 
 app.get("/", (req, res) => {
   res.json({
