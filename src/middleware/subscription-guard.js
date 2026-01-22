@@ -1,6 +1,11 @@
 const Subscription = require("../models/subscription");
 
 const subscriptionGuard = async (req, res, next) => {
+  if (process.env.SUBSCRIPTION_REQUIRED === "false") {
+    next();
+    return;
+  }
+
   if (req.method === "OPTIONS") {
     next();
     return;
