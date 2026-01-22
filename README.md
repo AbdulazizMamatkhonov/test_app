@@ -18,7 +18,8 @@ This repository is the starting point for a cloud-based stock management system 
 4. (Optional) Set `CORS_ORIGIN` to the frontend origin (defaults to `http://localhost:5173`).
 5. (Optional) Set `SUBSCRIPTION_REQUIRED=false` to bypass subscription enforcement in local dev.
 6. (Optional) Set `AUTH_REQUIRED=true` and provide `JWT_SECRET` to require user logins.
-7. Run the API
+7. (Optional) Set `TENANT_REQUIRED=false` to bypass tenant header enforcement in local dev.
+8. Run the API
    ```bash
    npm run dev
    ```
