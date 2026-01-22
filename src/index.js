@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 
 const { connectDatabase } = require("./config/db");
 const healthRouter = require("./routes/health");
+const subscriptionsRouter = require("./routes/subscriptions");
 const productsRouter = require("./routes/products");
 const stockRouter = require("./routes/stock");
 const customersRouter = require("./routes/customers");
@@ -11,6 +12,7 @@ const salesRouter = require("./routes/sales");
 const paymentsRouter = require("./routes/payments");
 const debtsRouter = require("./routes/debts");
 const errorHandler = require("./middleware/error-handler");
+const subscriptionGuard = require("./middleware/subscription-guard");
 
 dotenv.config();
 
@@ -21,6 +23,10 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 app.use("/health", healthRouter);
+app.use("/subscriptions", subscriptionsRouter);
+
+app.use(subscriptionGuard);
+
 app.use("/products", productsRouter);
 app.use("/stock", stockRouter);
 app.use("/customers", customersRouter);

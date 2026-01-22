@@ -15,7 +15,13 @@
       <div class="api-config">
         <label for="apiBase">API Base URL</label>
         <input id="apiBase" type="text" placeholder="http://localhost:3000" />
-        <button id="saveApiBase" type="button">Save</button>
+        <label for="subscriptionKey">Subscription Key</label>
+        <input id="subscriptionKey" type="text" placeholder="Enter subscription key" />
+        <div class="api-actions">
+          <button id="saveApiBase" type="button">Save</button>
+          <button id="checkSubscription" type="button">Check</button>
+        </div>
+        <p id="subscriptionStatus" class="notice">No subscription checked yet.</p>
       </div>
     </header>
 

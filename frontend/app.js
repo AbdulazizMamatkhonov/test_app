@@ -1,5 +1,8 @@
 const apiBaseInput = document.querySelector("#apiBase");
 const saveApiButton = document.querySelector("#saveApiBase");
+const subscriptionKeyInput = document.querySelector("#subscriptionKey");
+const checkSubscriptionButton = document.querySelector("#checkSubscription");
+const subscriptionStatus = document.querySelector("#subscriptionStatus");
 
 const productForm = document.querySelector("#productForm");
 const productList = document.querySelector("#productList");
@@ -18,6 +21,12 @@ const loadApiBase = () => {
   return saved;
 };
 
+const loadSubscriptionKey = () => {
+  const saved = localStorage.getItem("subscriptionKey") || "";
+  subscriptionKeyInput.value = saved;
+  return saved;
+};
+
 const setNotice = (element, message) => {
   element.innerHTML = `<p class="notice">${message}</p>`;
 };
@@ -33,9 +42,11 @@ const renderList = (element, items, formatter) => {
 
 const apiRequest = async (path, options = {}) => {
   const base = apiBaseInput.value.trim();
+  const subscriptionKey = subscriptionKeyInput.value.trim();
   const response = await fetch(`${base}${path}`, {
     headers: {
       "Content-Type": "application/json",
+      ...(subscriptionKey ? { "x-subscription-key": subscriptionKey } : {}),
     },
     ...options,
   });
@@ -105,16 +116,37 @@ const refreshAll = async () => {
       refreshPayments(),
     ]);
   } catch (error) {
-    setNotice(productList, "Unable to load data. Check API base URL.");
-    setNotice(customerList, "Unable to load data. Check API base URL.");
-    setNotice(salesList, "Unable to load data. Check API base URL.");
-    setNotice(paymentList, "Unable to load data. Check API base URL.");
+    setNotice(productList, "Unable to load data. Check API base URL/subscription.");
+    setNotice(customerList, "Unable to load data. Check API base URL/subscription.");
+    setNotice(salesList, "Unable to load data. Check API base URL/subscription.");
+    setNotice(paymentList, "Unable to load data. Check API base URL/subscription.");
+  }
+};
+
+const updateSubscriptionStatus = (message) => {
+  subscriptionStatus.textContent = message;
+};
+
+const checkSubscription = async () => {
+  try {
+    const data = await apiRequest("/subscriptions/status");
+    updateSubscriptionStatus(
+      `Status: ${data.data.status} | Plan: ${data.data.plan}`
+    );
+  } catch (error) {
+    updateSubscriptionStatus("Subscription check failed.");
   }
 };
 
 saveApiButton.addEventListener("click", () => {
   localStorage.setItem("apiBase", apiBaseInput.value.trim());
+  localStorage.setItem("subscriptionKey", subscriptionKeyInput.value.trim());
   refreshAll();
+});
+
+checkSubscriptionButton.addEventListener("click", () => {
+  localStorage.setItem("subscriptionKey", subscriptionKeyInput.value.trim());
+  checkSubscription();
 });
 
 productForm.addEventListener("submit", async (event) => {
@@ -209,4 +241,5 @@ debtForm.addEventListener("submit", async (event) => {
 });
 
 loadApiBase();
+loadSubscriptionKey();
 refreshAll();

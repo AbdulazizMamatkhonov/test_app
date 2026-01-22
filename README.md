@@ -23,11 +23,20 @@ The API will start on `http://localhost:3000` by default.
 ## Frontend
 
 Open `frontend/index.html` in your browser and set the API base URL (default: `http://localhost:3000`).
+Provide a subscription key to unlock the protected endpoints.
+
+## Subscription flow
+
+- `POST /subscriptions/activate` with `{ "key": "YOUR_KEY", "plan": "starter", "expiresAt": "2026-01-01" }` to activate.
+- `GET /subscriptions/status` with header `x-subscription-key: YOUR_KEY` to verify status.
+- All business endpoints require the `x-subscription-key` header.
 
 ## Endpoints
 
 - `GET /` - basic status payload
 - `GET /health` - health check endpoint
+- `POST /subscriptions/activate` - activate a subscription
+- `GET /subscriptions/status` - check subscription status
 - `GET /products` - list products
 - `POST /products` - create a product
 - `GET /products/:id` - fetch a product

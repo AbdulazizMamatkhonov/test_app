@@ -21,6 +21,7 @@ body {
   padding: 24px 32px;
   background: #1f2937;
   color: #f9fafb;
+  gap: 24px;
 }
 
 .top-bar h1 {
@@ -45,13 +46,23 @@ body {
   border: 1px solid #cbd5f5;
 }
 
-.api-config button {
+.api-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.api-actions button {
+  flex: 1;
   padding: 8px 12px;
   border-radius: 6px;
   border: none;
   background: #3b82f6;
   color: #fff;
   cursor: pointer;
+}
+
+.api-actions button:last-child {
+  background: #111827;
 }
 
 main {
@@ -113,5 +124,16 @@ main {
 
 .notice {
   font-size: 13px;
-  color: #6b7280;
+  color: #e2e8f0;
+}
+
+@media (max-width: 900px) {
+  .top-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .api-actions {
+    flex-direction: column;
+  }
 }
