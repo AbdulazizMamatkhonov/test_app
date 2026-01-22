@@ -1,6 +1,11 @@
 const Subscription = require("../models/subscription");
 
 const subscriptionGuard = async (req, res, next) => {
+  if (req.method === "OPTIONS") {
+    next();
+    return;
+  }
+
   const subscriptionKey = req.header("x-subscription-key");
 
   if (!subscriptionKey) {

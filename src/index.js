@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
 
@@ -20,9 +21,25 @@ dotenv.config();
 
 const app = express();
 const port = Number.parseInt(process.env.PORT, 10) || 3000;
+const corsOrigins = (process.env.CORS_ORIGIN || "http://localhost:5173")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
+const corsConfig = {
+  origin: (origin, callback) => {
+    if (!origin || corsOrigins.includes("*") || corsOrigins.includes(origin)) {
+      callback(null, true);
+      return;
+    }
+    callback(new Error("Not allowed by CORS"));
+  },
+  credentials: true,
+};
 
 app.use(express.json());
 app.use(morgan("dev"));
+app.use(cors(corsConfig));
 
 app.use("/health", healthRouter);
 app.use("/subscriptions", subscriptionsRouter);

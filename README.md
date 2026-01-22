@@ -15,7 +15,8 @@ This repository is the starting point for a cloud-based stock management system 
    cp .env.example .env
    ```
 3. Update `MONGODB_URI` in `.env` to point at your MongoDB instance.
-4. Run the API
+4. (Optional) Set `CORS_ORIGIN` to the frontend origin (defaults to `http://localhost:5173`).
+5. Run the API
    ```bash
    npm run dev
    ```
