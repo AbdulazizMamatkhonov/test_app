@@ -3,6 +3,11 @@ const mongoose = require("mongoose");
 const Tenant = require("../models/tenant");
 
 const tenantGuard = async (req, res, next) => {
+  if (process.env.TENANT_REQUIRED === "false") {
+    next();
+    return;
+  }
+
   if (req.method === "OPTIONS") {
     next();
     return;
