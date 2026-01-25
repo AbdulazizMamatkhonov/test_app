@@ -1,0 +1,17 @@
+const mongoose = require("mongoose");
+
+const connectDatabase = async () => {
+  const mongoUri = process.env.MONGODB_URI;
+
+  if (!mongoUri) {
+    throw new Error("MONGODB_URI is not set");
+  }
+
+  await mongoose.connect(mongoUri, {
+    autoIndex: true,
+  });
+
+  return mongoose.connection;
+};
+
+module.exports = { connectDatabase };
